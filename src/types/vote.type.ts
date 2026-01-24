@@ -6,11 +6,11 @@ export type Vote = {
   id: string;
   creator: string;
   title: string;
-  description: string;
-  startTime: Date;
-  endTime: Date;
+  description?: string;
+  startAt: number;
+  endAt: number;
   status: Status;
   options: Option[];
   voter: Voter[];
-  participants: number;
+  totalVotes: number;
 };

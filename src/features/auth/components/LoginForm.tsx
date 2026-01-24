@@ -9,6 +9,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
+  InputGroupText,
 } from "@/components/ui/input-group";
 import { ArrowRight, AtSign } from "lucide-react";
 import Google from "../../../assets/google.svg";
@@ -46,17 +47,16 @@ const LoginForm = () => {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel>E-mail</FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   {...field}
                   aria-invalid={fieldState.invalid}
-                  placeholder='Enter your e-mail'
+                  placeholder='example@domain.com'
                   type='email'
                   autoComplete='off'
                 />
-                <InputGroupAddon align={"inline-start"}>
-                  <AtSign />
+                <InputGroupAddon align={"block-start"}>
+                  <InputGroupText>E-mail</InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
