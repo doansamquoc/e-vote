@@ -163,7 +163,8 @@ const CreateForm = () => {
             {fields.length > 2 && (
               <Button
                 type='button'
-                variant='destructive'
+                variant='outline'
+                className='text-destructive border-dashed hover:text-destructive'
                 onClick={() => replace([{ name: "" }, { name: "" }])}
               >
                 <Trash /> Clear all
@@ -172,8 +173,9 @@ const CreateForm = () => {
 
             <Button
               type='button'
-              className='grow'
+              className='grow border-dashed text-primary hover:text-primary'
               onClick={() => append({ name: "" })}
+              variant={"outline"}
             >
               <Plus /> Add option
             </Button>

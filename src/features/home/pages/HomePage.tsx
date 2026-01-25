@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { DataTable } from "../components/votes/DataTable";
 import { columns } from "../components/votes/Columns";
 import type { Vote } from "../components/votes/Columns";
+import VoteItem from "../components/votes/VoteItem";
+import VoteView from "../components/votes/VoteView";
 
 async function getData(): Promise<Vote[]> {
   return [
@@ -141,8 +143,9 @@ export default function HomePage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className='w-full flex items-center'>
-      <DataTable columns={columns} data={data} />
+    <div className='w-full'>
+      {/* <DataTable columns={columns} data={data} /> */}
+      <VoteView />
     </div>
   );
 }
