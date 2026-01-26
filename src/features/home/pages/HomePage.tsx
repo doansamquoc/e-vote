@@ -3,7 +3,7 @@ import { DataTable } from "../components/votes/DataTable";
 import { columns } from "../components/votes/Columns";
 import type { Vote } from "../components/votes/Columns";
 import VoteItem from "../components/votes/VoteItem";
-import VoteView from "../components/votes/VoteView";
+import VoteView from "../components/votes/VoteViews";
 
 async function getData(): Promise<Vote[]> {
   return [

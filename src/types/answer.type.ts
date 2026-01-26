@@ -1,5 +1,5 @@
-export type Option = {
-  id: number;
+export type Answer = {
+  id: string;
   name: string;
   totalVotes: number;
 };

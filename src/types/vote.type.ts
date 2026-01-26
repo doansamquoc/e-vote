@@ -1,16 +1,22 @@
-import type { Option } from "./option.type";
+import type { Answer } from "./answer.type";
 import type { Voter } from "./voter.type";
 import type { Status } from "./status.type";
+import type { User } from "./user.type";
 
 export type Vote = {
   id: string;
-  creator: string;
+  creator: User;
   title: string;
   description?: string;
   startAt: number;
   endAt: number;
   status: Status;
-  options: Option[];
-  voter: Voter[];
+  answers: Answer[];
+  voters: Voter[];
   totalVotes: number;
+  createdAt: number;
+  isMultipleAnswer: boolean;
+
+  hasVoted: boolean;
+  selectedAnswerIds: string[];
 };

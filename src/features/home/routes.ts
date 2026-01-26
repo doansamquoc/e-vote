@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import MainLayout from "@/layouts/MainLayout";
 import AboutPage from "./pages/AboutPage";
 import CreatePage from "./pages/CreatePage";
+import VotePage from "./pages/VotePage";
 
 export const HomeRoutes: RouteObject[] = [
   {
@@ -20,6 +21,10 @@ export const HomeRoutes: RouteObject[] = [
       {
         path: "/about",
         Component: AboutPage,
+      },
+      {
+        path: "/votes",
+        Component: VotePage,
       },
     ],
   },
