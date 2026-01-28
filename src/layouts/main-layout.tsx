@@ -11,7 +11,7 @@ const MainLayout = () => {
       <main className='flex-1 max-w-3xl mx-auto w-full px-2'>
         <Outlet />
       </main>
-      <footer className='pt-8 pb-4 px-2 md:px-4 bg-blue-300 dark:bg-blue-950 border-t'>
+      <footer className='pt-8 pb-4 px-2 md:px-4'>
         <Footer />
       </footer>
     </div>
