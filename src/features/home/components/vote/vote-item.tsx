@@ -1,5 +1,5 @@
 import { Users2 } from "lucide-react";
-import { getStatusStyles } from "@/utils/style-utils";
+import { getStatusStyles, statusConvert } from "@/utils/style-utils";
 import type { VoteSummary } from "@/types/vote-summary.type";
 import { Link } from "react-router-dom";
 
@@ -30,11 +30,7 @@ const VoteItem = ({ vote }: VoteProps) => {
           </span>
           <span className='h-1 w-1 rounded-full bg-muted-foreground/30' />
           <span className={getStatusStyles(vote.status)}>
-            {vote.status === "OPEN"
-              ? "Đang diễn ra"
-              : vote.status === "UPCOMING"
-                ? "Sắp diễn ra"
-                : "Đã kết thúc"}
+            {statusConvert(vote.status)}
           </span>
         </div>
       </div>

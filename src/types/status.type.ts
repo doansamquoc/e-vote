@@ -1,1 +1,1 @@
-export type Status = "OPEN" | "CLOSED" | "UPCOMING";
+export type Status = "OPEN" | "CLOSED" | "UPCOMING" | "DRAFT";
