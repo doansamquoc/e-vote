@@ -2,6 +2,7 @@ import { Users2 } from "lucide-react";
 import { getStatusStyles, statusConvert } from "@/utils/style-utils";
 import type { VoteSummary } from "@/types/vote-summary.type";
 import { Link } from "react-router-dom";
+import DotSeparator from "@/components/dot-separator";
 
 export interface VoteProps {
   vote: VoteSummary;
@@ -19,16 +20,16 @@ const VoteItem = ({ vote }: VoteProps) => {
 
         <div className='flex items-center gap-3 text-xs text-muted-foreground mt-1'>
           <span>
-            by{" "}
+            bởi{" "}
             <span className='font-semibold text-foreground/80'>
               {vote.user.name}
             </span>
           </span>
-          <span className='h-1 w-1 rounded-full bg-muted-foreground/30' />
+          <DotSeparator />
           <span className='flex items-center gap-1'>
             <Users2 className='size-3' /> {vote.participants}
           </span>
-          <span className='h-1 w-1 rounded-full bg-muted-foreground/30' />
+          <DotSeparator />
           <span className={getStatusStyles(vote.status)}>
             {statusConvert(vote.status)}
           </span>

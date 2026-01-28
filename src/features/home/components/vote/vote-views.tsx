@@ -46,7 +46,7 @@ const votes: VoteSummary[] = [
     },
     title: "Bình chọn địa điểm Team Building 2024",
     id: "",
-    status: "OPEN",
+    status: "DRAFT",
     participants: 125,
   },
   {
@@ -147,7 +147,7 @@ const votes: VoteSummary[] = [
   },
 ];
 
-export default function VoteView() {
+export default function VoteViews() {
   return (
     <div className='grid grid-cols-1 gap-2'>
       {votes.map((vote, index) => (
