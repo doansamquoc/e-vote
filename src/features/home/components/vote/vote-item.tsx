@@ -1,5 +1,4 @@
 import { Users2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { getStatusStyles } from "@/utils/style-utils";
 import type { VoteSummary } from "@/types/vote-summary.type";
 import { Link } from "react-router-dom";
