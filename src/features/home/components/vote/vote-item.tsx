@@ -21,7 +21,7 @@ const VoteItem = ({ vote }: VoteProps) => {
         <div className='flex items-center gap-3 text-xs text-muted-foreground mt-1'>
           <span>
             bởi{" "}
-            <span className='font-semibold text-foreground/80'>
+            <span className='font-semibold text-foreground'>
               {vote.user.name}
             </span>
           </span>
