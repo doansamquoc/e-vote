@@ -1,9 +1,9 @@
 import type { RouteObject } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import MainLayout from "@/layouts/MainLayout";
-import AboutPage from "./pages/AboutPage";
-import CreatePage from "./pages/CreatePage";
-import VotePage from "./pages/VotePage";
+import HomePage from "./pages/home-page";
+import MainLayout from "@/layouts/main-layout";
+import AboutPage from "./pages/about-page";
+import CreatePage from "./pages/create-page";
+import VotePage from "./pages/vote-page";
 
 export const HomeRoutes: RouteObject[] = [
   {
