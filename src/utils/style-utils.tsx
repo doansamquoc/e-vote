@@ -25,3 +25,14 @@ export function statusConvert(status: Status) {
       return "Bản nháp";
   }
 }
+
+export function getAlertStyleByStatus(status: Status) {
+  switch (status) {
+    case "CLOSED":
+      return "border-red-200 bg-red-50 text-red-900 dark:border-red-900 dark:bg-red-950 dark:text-red-50";
+    case "UPCOMING":
+      return "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-50";
+    case "DRAFT":
+      return "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50";
+  }
+}

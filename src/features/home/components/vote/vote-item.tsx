@@ -3,6 +3,7 @@ import { getStatusStyles, statusConvert } from "@/utils/style-utils";
 import type { VoteSummary } from "@/types/vote-summary.type";
 import { Link } from "react-router-dom";
 import DotSeparator from "@/components/dot-separator";
+import { formatDate } from "@/utils/date-utils";
 
 export interface VoteProps {
   vote: VoteSummary;
@@ -19,12 +20,7 @@ const VoteItem = ({ vote }: VoteProps) => {
         </div>
 
         <div className='flex items-center gap-3 text-xs text-muted-foreground mt-1'>
-          <span>
-            bởi{" "}
-            <span className='font-semibold text-foreground'>
-              {vote.user.name}
-            </span>
-          </span>
+          <span>{formatDate(vote.createdAt)}</span>
           <DotSeparator />
           <span className='flex items-center gap-1'>
             <Users2 className='size-3' /> {vote.participants}

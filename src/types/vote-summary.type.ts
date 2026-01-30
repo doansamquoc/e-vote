@@ -7,4 +7,5 @@ export type VoteSummary = {
   title: string;
   status: Status;
   participants: number;
+  createdAt: number;
 };

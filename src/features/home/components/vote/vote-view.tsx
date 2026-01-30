@@ -15,21 +15,26 @@ import {
   FileDown,
   Trash2,
   TrendingUp,
+  AlertTriangle,
+  ChartPie,
+  Share,
+  Send,
 } from "lucide-react";
 import z from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Badge } from "@/components/ui/badge";
-import { getStatusStyles } from "@/utils/style-utils";
 import type { Vote } from "@/types/vote.type";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { RadioGroupItem } from "@/components/ui/radio-group";
-import { formatDate } from "@/utils/date-utils";
+import { calcStatus, formatDate } from "@/utils/date-utils";
 import { Progress } from "@/components/ui/progress";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { getAlertStyleByStatus } from "@/utils/style-utils";
+import { Link } from "react-router-dom";
 
 // Schemas
 const multipleVoteSchema = z.object({
@@ -49,16 +54,13 @@ const sampleVote: Vote = {
   id: "vote-123",
   creator: {
     publicAddress: "user1",
-    name: "Nguyễn Văn An",
-    email: "Doan Sam Quoc",
-    avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=An",
+    email: "doansamquoc@gmail.com",
   },
   title: "Chọn địa điểm team building quý 2/2026",
   description:
     "Cùng nhau quyết định địa điểm cho chuyến team building sắp tới. Hãy bình chọn để chúng ta có thể lên kế hoạch tốt nhất!",
-  startAt: Date.now() - 86400000,
-  endAt: Date.now() + 172800000,
-  status: "OPEN",
+  startAt: Date.now() + 86400000,
+  endAt: Date.now() + 86400000 * 2,
   answers: [
     { id: "a1", name: "Đà Lạt - Thành phố ngàn hoa", totalVotes: 15 },
     { id: "a2", name: "Phú Quốc - Đảo ngọc", totalVotes: 23 },
@@ -68,9 +70,10 @@ const sampleVote: Vote = {
   voters: [],
   totalVotes: 58,
   createdAt: Date.now() - 86400000,
-  isMultipleAnswer: true,
+  isMultipleAnswer: false,
   hasVoted: true,
   selectedAnswerIds: ["a1"],
+  resultVisibility: "PRIVATE",
 };
 
 const VoteView = ({ vote = sampleVote }) => {
@@ -123,21 +126,35 @@ const VoteView = ({ vote = sampleVote }) => {
   const topAnswer = getTopAnswer();
 
   return (
-    <Card className='w-full'>
-      <CardHeader className='space-y-4'>
-        {/* Header with status and menu */}
-        <div className='flex items-center justify-between'>
-          <Badge className={getStatusStyles(vote.status)}>
-            {vote.status === "OPEN"
-              ? "Đang diễn ra"
-              : vote.status === "UPCOMING"
-                ? "Sắp diễn ra"
-                : "Đã kết thúc"}
-          </Badge>
-
+    <div className='w-full py-6 space-y-4'>
+      <div className='space-y-4'>
+        <Alert
+          className={getAlertStyleByStatus(
+            calcStatus(vote.startAt, vote.endAt),
+          )}
+        >
+          <AlertTriangle />
+          <AlertTitle>Cuộc bỏ phiếu đã kết thúc!</AlertTitle>
+          <AlertDescription>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          </AlertDescription>
+        </Alert>
+        <div className='flex items-center gap-3'>
+          <Avatar className='h-10 w-10'>
+            <AvatarImage
+              src={`https://api.dicebear.com/9.x/notionists/svg?backgroundColor=b6e3f4,c0aede,d1d4f9&seed=${vote.creator.publicAddress}`}
+            />
+            <AvatarFallback>{vote.creator.email.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className='font-medium text-sm'>{vote.creator.email}</p>
+            <p className='text-xs text-muted-foreground'>
+              {formatDate(vote.createdAt)}
+            </p>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='ghost' size='icon' className='h-8 w-8'>
+              <Button variant='ghost' size='icon' className='h-8 w-8 ml-auto'>
                 <MoreVertical className='h-4 w-4' />
               </Button>
             </DropdownMenuTrigger>
@@ -155,20 +172,6 @@ const VoteView = ({ vote = sampleVote }) => {
           </DropdownMenu>
         </div>
 
-        {/* Creator info */}
-        <div className='flex items-center gap-3'>
-          <Avatar className='h-10 w-10'>
-            <AvatarImage src={vote.creator.avatarUrl} />
-            <AvatarFallback>{vote.creator.name[0]}</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className='font-medium text-sm'>{vote.creator.name}</p>
-            <p className='text-xs text-muted-foreground'>
-              {formatDate(vote.createdAt)}
-            </p>
-          </div>
-        </div>
-
         {/* Title and description */}
         <div className='space-y-2'>
           <h1 className='text-2xl font-bold leading-tight'>{vote.title}</h1>
@@ -178,7 +181,7 @@ const VoteView = ({ vote = sampleVote }) => {
         </div>
 
         {/* Stats bar */}
-        <div className='flex flex-wrap gap-4 text-sm text-muted-foreground pt-2 border-t'>
+        <div className='flex flex-wrap gap-4 text-sm text-muted-foreground'>
           <div className='flex items-center gap-1.5'>
             <Clock className='w-4 h-4' />
             <span>{getTimeRemaining()}</span>
@@ -198,9 +201,9 @@ const VoteView = ({ vote = sampleVote }) => {
             </div>
           )}
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent className='space-y-4'>
+      <div className='space-y-4'>
         <div className='flex items-center justify-between'>
           <p className='text-sm font-medium'>
             {vote.isMultipleAnswer ? "Chọn nhiều đáp án:" : "Chọn một đáp án:"}
@@ -361,26 +364,36 @@ const VoteView = ({ vote = sampleVote }) => {
             />
           )}
 
-          {!vote.hasVoted && (
-            <Button type='submit' className='w-full' size='lg'>
+          {vote.hasVoted && (
+            <Alert className='border-green-200 bg-green-50 text-green-900 dark:border-green-900 dark:bg-green-950 dark:text-green-50'>
+              <CheckCircle2 />
+              <AlertTitle>Cảm ơn bạn đã bình chọn!</AlertTitle>
+              <AlertDescription>
+                Bình chọn của bạn là minh bạch, sẽ không thể sửa đổi hoặc xóa
+                bỏ.
+              </AlertDescription>
+            </Alert>
+          )}
+          <div className='flex gap-2'>
+            <Button type='submit'>
+              <Send />
               Bình chọn ngay
             </Button>
-          )}
-        </form>
-
-        {vote.hasVoted && (
-          <div className='flex items-center justify-center gap-2 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800'>
-            <CheckCircle2 className='w-5 h-5 text-green-600 dark:text-green-400' />
-            <span className='font-medium text-green-600 dark:text-green-400'>
-              Cảm ơn bạn đã bình chọn!
-            </span>
+            <Button variant={"outline"} asChild>
+              <Link to={`/votes/${vote.id}/result`}>
+                <ChartPie />
+                <span className='hidden md:block'>Kết quả</span>
+              </Link>
+            </Button>
+            <Button variant={"outline"} className='ml-auto'>
+              <Share />
+              <span className='hidden md:block'>Chia sẻ</span>
+            </Button>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </form>
+      </div>
+    </div>
   );
 };
 
-export default function App() {
-  return <VoteView />;
-}
+export default VoteView;
