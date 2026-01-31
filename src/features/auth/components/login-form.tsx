@@ -16,20 +16,25 @@ import Google from "../../../assets/google.svg";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/use-auth";
 
 const schema = z.object({
   email: z.email({ message: "Please enter a valid e-mail address." }),
 });
 
 const LoginForm = () => {
+  const { login, user } = useAuth();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
       email: "",
     },
   });
+  console.log("User:", user);
+
   async function submit(data: z.infer<typeof schema>) {
     console.log("Data: ", data);
+    login(data.email);
   }
   return (
     <div className='flex flex-col gap-4'>

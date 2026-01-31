@@ -1,10 +1,13 @@
 import { ThemeProvider } from "./components/theme-provider";
+import { AuthProvider } from "./hooks/use-auth";
 import { AppRouter } from "./routes";
 
 function App() {
   return (
     <ThemeProvider defaultTheme='system' storageKey='dark-mode'>
-      <AppRouter />
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
